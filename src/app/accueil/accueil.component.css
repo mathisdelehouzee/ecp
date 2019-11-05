@@ -1,4 +1,6 @@
-.header {
-    height: 5em;
-    
-    }
+#container
+{
+  display: flex;
+  flex-direction: row;
+
+}
