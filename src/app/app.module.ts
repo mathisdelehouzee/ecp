@@ -16,11 +16,19 @@ import { FourOhFourComponent } from './four-oh-four/four-oh-four.component';
 import { InscrComponent } from './inscr/inscr.component';
 import { AuthComponent } from './auth/auth.component';
 
+import { AuthGuard } from './services/auth-guard.service';
+import { AccueilService } from './services/accueil.service';
+import { AuthService } from './services/auth.service';
+
+
+
+
 
 const appRoutes: Routes = [
-  { path: 'profile',component: ProfileTabsComponent , data: {title:'page title1'} }, // :id is a route parameter and data is to parse static data
-  { path: 'accueil',component: AccueilComponent , data: {title:'page title2'} },
+  { path: 'profile', canActivate: [AuthGuard],component: ProfileTabsComponent , data: {title:'page title1'} }, // :id is a route parameter and data is to parse static data
+  { path: 'accueil', component: AccueilComponent , data: {title:'page title2'} },
   { path: 'auth',component: AuthComponent },
+  { path: 'inscrire', component: InscrComponent},
   { path: '', component: AccueilComponent},
   { path: '**', component: FourOhFourComponent}
 
@@ -49,7 +57,11 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    AccueilService,
+    AuthService,
+    AuthGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
